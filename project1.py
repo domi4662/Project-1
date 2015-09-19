@@ -2,22 +2,23 @@
 # Filename: project1.py
 #
 # Abstract: This Program will read some images (for this project nine images), and it will
-# calculate the median of the each pixels of these images to obtain a new image that contains the median
-# of each pixel calculated before. 
+# calculate the median of the each pixels of these images to obtain a new image that contains 
+# the median of each pixel calculated before. The name of the images need to be renamed in a
+# sequence of numbers. Ex. 1.png, 2.png, etc...
 # 
 # Author: Carlos Eduardo Domingues dos Santos
 # Date: 09/15/2015
+# 
+# Git: https://github.com/domi4662/Project-1.git
 #
-# '/Users/ceds1705/Downloads/Project1Images/'
 # + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
     
 
-def getImages():
-   folder = raw_input("Type the directory of the images: ")
+def getImages(folder, num_images):
    pictures = [] # Array of pictures 
    counter = 0
    try:
-       for counter in range(0, 9): # Getting Images
+       for counter in range(0, num_images): # Getting Images
            imagePath = folder + str(counter + 1) + '.png'
            pictures.append(makePicture(imagePath)) # Inserting images in the array
    except:
@@ -25,7 +26,7 @@ def getImages():
        return pictures
    return pictures
    
-def createNewImage(imgs):
+def createNewImage(imgs, num_images):
     try:
         print "Processing new image..."
         height = getHeight(imgs[0]) # Get the height of first image
@@ -37,7 +38,7 @@ def createNewImage(imgs):
                 rColor = [] # Array to store red pixels of the images
                 gColor = [] # Array to store green pixels of the images
                 bColor = [] # Array to store blue pixels of the images
-                for i in range(0, 10):
+                for i in range(0, num_images+1):
                     pixel = getPixel(imgs[i], x, y) # Get pixels of the images
                     rColor.append(getRed(pixel)) # Get red color of the pixel  
                     gColor.append(getGreen(pixel)) # Get green color of the pixel
@@ -63,8 +64,10 @@ def findMedian(color):
 def main():
     image_created = false 
     imgs = [] # Array of images
-    imgs = getImages() # Get images and stores in the array
-    image_created = createNewImage(imgs)  
+    folder = raw_input("Type the directory of the images: ")
+    num_images =  int(raw_input("How many images do you want to read? ")) # number of images
+    imgs = getImages(folder, num_images) # Get images and stores in the array
+    image_created = createNewImage(imgs, num_images)  
     if(image_created == true):
         print "Image created successful!!"
     else:
